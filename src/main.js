@@ -1,5 +1,4 @@
 import * as THREE from "three";
-import "./styles.css";
 
 const STAGE_SIZE = 7;
 const CENTER = (STAGE_SIZE - 1) / 2;
