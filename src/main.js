@@ -6,6 +6,8 @@ const CELL = 0.9;
 const BLOCK_SIZE = 0.74;
 const START_INTERVAL = 1.05;
 const MIN_INTERVAL = 0.22;
+const STAGE_RADIUS = (Math.sqrt(3) * STAGE_SIZE * CELL) / 2;
+const CAMERA_DIRECTION = new THREE.Vector3(8.2, 7.4, 11.5).normalize();
 
 const DIRS = [
   { id: "X-", label: "LEFT", axis: "x", sign: 1, u: "z", v: "y" },
@@ -118,8 +120,6 @@ const scene = new THREE.Scene();
 scene.fog = new THREE.FogExp2(0x07090d, 0.035);
 
 const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-camera.position.set(8.2, 7.4, 11.5);
-camera.lookAt(0, 0, 0);
 
 const stageGroup = new THREE.Group();
 stageGroup.rotation.set(-0.56, 0.72, 0.12);
@@ -355,8 +355,19 @@ function resize() {
   const height = window.innerHeight;
   renderer.setSize(width, height, false);
   camera.aspect = width / height;
-  camera.position.z = width < 720 ? 14.5 : 11.5;
+  fitCameraToStage(width);
   camera.updateProjectionMatrix();
+}
+
+function fitCameraToStage(width) {
+  const verticalFov = THREE.MathUtils.degToRad(camera.fov);
+  const horizontalFov = 2 * Math.atan(Math.tan(verticalFov / 2) * camera.aspect);
+  const limitingFov = Math.min(verticalFov, horizontalFov);
+  const padding = width < 720 ? 1.32 : 1.08;
+  const distance = (STAGE_RADIUS * padding) / Math.sin(limitingFov / 2);
+
+  camera.position.copy(CAMERA_DIRECTION).multiplyScalar(distance);
+  camera.lookAt(0, 0, 0);
 }
 
 function restartGame() {
