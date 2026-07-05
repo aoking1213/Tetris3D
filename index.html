@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3Dテトリス</title>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game"></canvas>
+
+      <header class="hud hud-top">
+        <section class="score-panel" aria-label="score board">
+          <div>
+            <span class="metric-label">SCORE</span>
+            <strong id="score">0</strong>
+          </div>
+          <div>
+            <span class="metric-label">LEVEL</span>
+            <strong id="level">1</strong>
+          </div>
+          <div>
+            <span class="metric-label">CLEARS</span>
+            <strong id="clears">0</strong>
+          </div>
+        </section>
+        <section class="direction-panel" aria-label="incoming direction">
+          <span class="metric-label">INCOMING</span>
+          <strong id="incoming">-</strong>
+        </section>
+      </header>
+
+      <nav class="hud mobile-dpad" aria-label="mobile movement controls">
+        <span class="dpad-spacer" aria-hidden="true"></span>
+        <button data-move-u="0" data-move-v="1" type="button" title="Move up" aria-label="Move up">↑</button>
+        <span class="dpad-spacer" aria-hidden="true"></span>
+        <button data-move-u="-1" data-move-v="0" type="button" title="Move left" aria-label="Move left">←</button>
+        <span class="dpad-center" aria-hidden="true"></span>
+        <button data-move-u="1" data-move-v="0" type="button" title="Move right" aria-label="Move right">→</button>
+        <span class="dpad-spacer" aria-hidden="true"></span>
+        <button data-move-u="0" data-move-v="-1" type="button" title="Move down" aria-label="Move down">↓</button>
+        <span class="dpad-spacer" aria-hidden="true"></span>
+      </nav>
+
+      <nav class="hud control-rail" aria-label="game controls">
+        <button id="rotate-left" type="button" title="Rotate mino left" aria-label="Rotate mino left">↺</button>
+        <button id="rotate-right" type="button" title="Rotate mino right" aria-label="Rotate mino right">↻</button>
+        <button id="hard-drop" type="button" title="Hard drop" aria-label="Hard drop">⇥</button>
+        <button id="pause" type="button" title="Pause" aria-label="Pause">Ⅱ</button>
+        <button id="restart" type="button" title="Restart" aria-label="Restart">⟲</button>
+      </nav>
+
+      <section id="game-over" class="modal" aria-live="polite" hidden>
+        <div class="modal-panel">
+          <p>GAME OVER</p>
+          <strong id="final-score">0</strong>
+          <button id="play-again" type="button">RESTART</button>
+        </div>
+      </section>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
